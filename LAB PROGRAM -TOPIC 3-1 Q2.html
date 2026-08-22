@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)http://simatslab.saveetha.com/practice_app/classactivity/attempt?assignment_id=680 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="csrf-token" content="e72d7ae0ed933d950cbd1290e8e984ed0133695ad9957483b14ee74d91fc6d46">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMATS Online Lab</title>
+    <link rel="stylesheet" href="./LAB PROGRAM -TOPIC 3-1 Q2_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./LAB PROGRAM -TOPIC 3-1 Q2_files/all.min.css">
+    <link rel="stylesheet" href="./LAB PROGRAM -TOPIC 3-1 Q2_files/boxicons.min.css">
+    <link rel="stylesheet" href="./LAB PROGRAM -TOPIC 3-1 Q2_files/style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .main-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-bottom: 3px solid #f39c12;
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-left, .header-right {
+            flex: 1;
+            display: flex;
+        }
+        .header-left {
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .header-center {
+            flex: 2;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .header-right {
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .header-logo {
+            max-height: 55px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        .header-logo:hover {
+            transform: scale(1.05);
+        }
+        .main-header h1.app-title {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            display: block;
+        }
+        .app-subtitle {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f39c12;
+            margin-top: 4px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            text-shadow: 0px 1px 2px rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.15);
+            padding: 2px 10px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .welcome-text {
+            color: #ecf0f1;
+            font-size: 0.95rem;
+        }
+        .logout-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .logout-btn:hover {
+            background-color: #e74c3c;
+            color: #ffffff;
+            border-color: #e74c3c;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Dropdown container */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        /* The user pill acts as the button */
+        .user-pill {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .user-pill:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+        .welcome-text {
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            color: #ffffff;
+        }
+        /* Dropdown content */
+        .user-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 115%;
+            background-color: #ffffff;
+            min-width: 160px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 1000;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            animation: fadeInDown 0.2s ease-out forwards;
+        }
+        .user-dropdown-content.show {
+            display: block;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .user-dropdown-content a {
+            color: #334155;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: background 0.2s ease, color 0.2s ease;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .user-dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        .user-dropdown-content a:hover {
+            background-color: #f8fafc;
+            color: #1e3c72;
+        }
+        .user-dropdown-content a i {
+            width: 18px;
+            text-align: center;
+            color: #64748b;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+        .user-dropdown-content a:hover i {
+            color: #1e3c72;
+        }
+        .user-dropdown-content .logout-option:hover {
+            color: #e74c3c;
+            background-color: #fef2f2;
+        }
+        .user-dropdown-content .logout-option:hover i {
+            color: #e74c3c;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .header-left, .header-center, .header-right {
+                flex: none;
+                width: 100%;
+                justify-content: center;
+            }
+            .main-header h1.app-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+<style>.q-text-body,.option-card,.q-code-block,.q-inline-code,.q-nav-item{-webkit-user-select:none!important;user-select:none!important}</style></head>
+<body>
+<header class="main-header">
+    <div class="header-container">
+        <div class="header-left">
+                        <a href="http://simatslab.saveetha.com/practice_app/dashboard_student">
+                <img src="./LAB PROGRAM -TOPIC 3-1 Q2_files/sselogonew.png" alt="Logo" class="header-logo">
+            </a>
+        </div>
+        
+        <div class="header-center">
+            <h1 class="app-title">SIMATS Online Programming Lab</h1>
+                            <div class="app-subtitle">DAA Programming</div>                    </div>
+        
+        <div class="header-right">
+                            <div class="user-dropdown" id="headerUserDropdown">
+                    <div class="user-pill" id="userDropdownBtn">
+                        <i class="fas fa-user-circle" style="font-size: 1.6rem; color: #ffffff;"></i>
+                        <div style="display: flex; flex-direction: column; line-height: 1.1;">
+                            <span class="welcome-text" style="font-size: 0.9rem;">Chundi Manogna Sri Hasitha</span>
+                                                            <span style="font-size: 0.75rem; color: #cbd5e1; font-weight: 500; letter-spacing: 0.5px;">192525215RA</span>
+                                                    </div>
+                        <i class="fas fa-chevron-down text-white ms-1" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="user-dropdown-content" id="userDropdownContent">
+                                                    <a href="http://simatslab.saveetha.com/practice_app/dashboard_student">
+                                <i class="fas fa-th-large"></i> Dashboard
+                            </a>
+                                                <a href="javascript:void(0);" onclick="document.getElementById(&#39;changePwdModal&#39;).style.display=&#39;flex&#39;">
+                            <i class="fas fa-key"></i> Change Password
+                        </a>
+                        <a href="http://simatslab.saveetha.com/practice_app/logout" class="logout-option">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+                    </div>
+    </div>
+    <!-- Native Password Modal Structure -->
+    <div id="changePwdModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 100000; align-items:center; justify-content:center; background: rgba(15, 23, 42, 0.85);">
+        <div style="background:#fff; padding:35px; border-radius:12px; width:90%; max-width:420px; position:relative; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+            <span onclick="document.getElementById(&#39;changePwdModal&#39;).style.display=&#39;none&#39;; document.getElementById(&#39;pwdAlert&#39;).classList.add(&#39;d-none&#39;);" style="position:absolute; right:20px; top:15px; font-size:32px; cursor:pointer; color:#94a3b8; line-height:1;">×</span>
+            <h3 class="mb-4" style="color:#1e293b; font-size:1.4rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Security Control</h3>
+            
+            <div id="pwdAlert" class="alert d-none" style="padding:10px; font-size:0.95rem; font-weight: 500;"></div>
+            
+            <form id="changePwdForm">
+                <div class="mb-3 text-start">
+                    <label class="form-label" style="font-size:0.9rem; font-weight:600; color:#475569;">Current Password</label>
+                    <input type="password" id="oldPwd" class="form-control" required="" style="border-color: #cbd5e1;">
+                </div>
+                <div class="mb-3 text-start">
+                    <label class="form-label" style="font-size:0.9rem; font-weight:600; color:#475569;">New Password (4-20 chars)</label>
+                    <input type="password" id="newPwd" class="form-control" required="" minlength="4" maxlength="20" style="border-color: #cbd5e1;">
+                </div>
+                <div class="mb-4 text-start">
+                    <label class="form-label" style="font-size:0.9rem; font-weight:600; color:#475569;">Retype New Password</label>
+                    <input type="password" id="retypePwd" class="form-control" required="" minlength="4" maxlength="20" style="border-color: #cbd5e1;">
+                </div>
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" id="btnSubmitPwd"><i class="fas fa-save"></i> Update Password</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var dropdownBtn = document.getElementById('userDropdownBtn');
+            var dropdownContent = document.getElementById('userDropdownContent');
+            if (dropdownBtn && dropdownContent) {
+                dropdownBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    dropdownContent.classList.toggle('show');
+                });
+                document.addEventListener('click', function(e) {
+                    if (!dropdownContent.contains(e.target) && !dropdownBtn.contains(e.target)) {
+                        dropdownContent.classList.remove('show');
+                    }
+                });
+            }
+
+            // CHANGE PASSWORD AJAX HANDLER
+            const pwdForm = document.getElementById('changePwdForm');
+            const pwdAlert = document.getElementById('pwdAlert');
+            if (pwdForm) {
+                pwdForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const btn = document.getElementById('btnSubmitPwd');
+                    const old = document.getElementById('oldPwd').value;
+                    const newP = document.getElementById('newPwd').value;
+                    const retP = document.getElementById('retypePwd').value;
+
+                    pwdAlert.className = 'alert d-none';
+
+                    if (newP !== retP) {
+                        pwdAlert.innerHTML = 'Error: New passwords do not match!';
+                        pwdAlert.classList.remove('d-none');
+                        pwdAlert.classList.add('alert-danger');
+                        return;
+                    }
+                    if (newP.length < 4 || newP.length > 20) {
+                        pwdAlert.innerHTML = 'Error: Password must be between 4 and 20 characters!';
+                        pwdAlert.classList.remove('d-none');
+                        pwdAlert.classList.add('alert-warning');
+                        return;
+                    }
+
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+
+                    fetch('/practice_app/secure/change_password.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: 'oldPwd=' + encodeURIComponent(old) + '&newPwd=' + encodeURIComponent(newP) + '&csrf_token=' + encodeURIComponent(document.querySelector('meta[name="csrf-token"]').content)
+                    })
+                    .then(r => r.json())
+                    .then(data => {
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-save"></i> Update Password';
+                        
+                        pwdAlert.classList.remove('d-none');
+                        if(data.success) {
+                            pwdAlert.classList.add('alert-success');
+                            pwdAlert.innerHTML = 'Success! Password securely changed.';
+                            pwdForm.reset();
+                            setTimeout(() => { 
+                                document.getElementById('changePwdModal').style.display='none'; 
+                                pwdAlert.classList.add('d-none');
+                            }, 2500);
+                        } else {
+                            pwdAlert.classList.add('alert-danger');
+                            pwdAlert.innerHTML = data.message || 'Authentication failed.';
+                        }
+                    })
+                    .catch(e => {
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-save"></i> Update Password';
+                        pwdAlert.classList.remove('d-none');
+                        pwdAlert.classList.add('alert-danger');
+                        pwdAlert.innerHTML = 'Critical Network Error occurred.';
+                    });
+                });
+            }
+
+            // Force reload if page is loaded from cache (e.g. back/forward button)
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2)) {
+                    window.location.reload();
+                }
+            });
+        });
+    </script>
+</header>
+<main class="main-content">
+<style>
+.attempt-layout { display: flex; gap: 20px; min-height: 80vh; }
+.q-nav { flex: 0 0 220px; }
+.q-content { flex: 1; min-width: 0; }
+.q-nav-item { padding: 10px 14px; border-radius: 8px; cursor: pointer; border: 1px solid #e9ecef; margin-bottom: 6px; background: #fff; transition: all .15s; }
+.q-nav-item:hover   { border-color: #0d6efd; background: #f0f6ff; }
+.q-nav-item.active  { border-color: #0d6efd; background: #e7f1ff; }
+.q-nav-item.done    { border-color: #16a34a; background: #f0fdf4; }
+.q-nav-item .q-nav-num  { font-weight: 700; font-size: .8rem; color: #1e293b; }
+.q-nav-item .q-nav-type { font-size: .7rem; color: #64748b; }
+.q-nav-item .q-nav-tick { color: #16a34a; }
+/* CodeMirror overrides */
+.CodeMirror { height: auto !important; min-height: 300px; font-size: .9rem !important;
+              border-radius: 10px; font-family: 'Fira Code','Courier New',monospace !important; }
+.CodeMirror-scroll { min-height: 300px; }
+.CodeMirror-lines  { padding: 12px 0; }
+.CodeMirror-gutters { border-right: 1px solid #2d3f55; background: #1a2332; border-radius: 10px 0 0 10px; }
+.CodeMirror-linenumber { color: #4a6080; padding: 0 8px; }
+.cm-readonly .CodeMirror-cursor { display: none; }
+/* Output area */
+.output-area { background: #0f172a; color: #10b981; font-family: 'Courier New',monospace; font-size:.85rem; border-radius: 10px; border: none; width: 100%; min-height: 120px; padding: 12px; resize: none; }
+/* MCQ */
+.option-card { padding: 12px 16px; border-radius: 10px; border: 2px solid #e9ecef; cursor: pointer; transition: all .15s; margin-bottom: 8px; }
+.option-card:hover  { border-color: #0d6efd; background: #f0f6ff; }
+.option-card.selected { border-color: #0d6efd; background: #e7f1ff; }
+.option-card.correct  { border-color: #16a34a; background: #f0fdf4; }
+.option-card.wrong    { border-color: #dc2626; background: #fef2f2; }
+.tc-badge-pass { background: #dcfce7; color: #15803d; }
+.tc-badge-fail { background: #fee2e2; color: #b91c1c; }
+.tc-badge-none { background: #f1f5f9; color: #475569; }
+/* Question text */
+.q-text-body { font-size: .95rem; line-height: 1.7; }
+.q-text-body p  { margin: 0 0 10px; }
+.q-text-body p:last-child { margin-bottom: 0; }
+.q-code-block { background: #1e293b; color: #e2e8f0; padding: 12px 16px; border-radius: 8px;
+                font-size: .83rem; margin: 10px 0; overflow-x: auto;
+                font-family: 'Fira Code','Courier New',monospace; }
+.q-inline-code { background: #f1f5f9; color: #be185d; padding: 1px 5px; border-radius: 4px; font-size: .88rem; }
+</style>
+
+<div class="container py-3" style="max-width:1300px">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h5 class="fw-bold mb-0">LAB PROGRAM -TOPIC 3-1</h5>
+                    </div>
+        <a href="http://simatslab.saveetha.com/practice_app/classactivity/student_assignments.php" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left me-1"></i> Back
+        </a>
+    </div>
+
+        <div class="d-flex align-items-center gap-2 mb-3">
+        <span class="small fw-semibold text-muted">Language:</span>
+        <div class="btn-group btn-group-sm" id="lang-switcher">
+            <button type="button" class="btn btn-outline-primary active" data-lang="p" onclick="switchLang(&#39;p&#39;)">Python</button>
+            <button type="button" class="btn btn-outline-primary" data-lang="c" onclick="switchLang(&#39;c&#39;)">C</button>
+            <button type="button" class="btn btn-outline-primary" data-lang="cpp" onclick="switchLang(&#39;cpp&#39;)">C++</button>
+            <button type="button" class="btn btn-outline-primary" data-lang="j" onclick="switchLang(&#39;j&#39;)">Java</button>
+        </div>
+    </div>
+    
+    <div class="attempt-layout">
+        <!-- Question Navigator -->
+        <div class="q-nav">
+            <div class="card border-0 shadow-sm rounded-4 p-3">
+                <div class="fw-semibold small mb-3" style="color:#64748b;text-transform:uppercase;letter-spacing:.5px">Questions</div>
+                                                <div class="q-nav-item done" id="nav_5777" onclick="showQuestion(5777)">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="q-nav-num">Q1</span>
+                                                <i class="fas fa-check-circle q-nav-tick"></i>
+                                            </div>
+                    <div class="q-nav-type">Sequential Search</div>
+                    <div class="text-muted" style="font-size:.7rem;margin-top:2px">1 mark</div>
+                </div>
+                                                <div class="q-nav-item done active" id="nav_5776" onclick="showQuestion(5776)">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="q-nav-num">Q2</span>
+                                                <i class="fas fa-check-circle q-nav-tick"></i>
+                                            </div>
+                    <div class="q-nav-type">Sequential Search</div>
+                    <div class="text-muted" style="font-size:.7rem;margin-top:2px">1 mark</div>
+                </div>
+                                                <div class="q-nav-item done" id="nav_5775" onclick="showQuestion(5775)">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="q-nav-num">Q3</span>
+                                                <i class="fas fa-check-circle q-nav-tick"></i>
+                                            </div>
+                    <div class="q-nav-type">Sequential Search</div>
+                    <div class="text-muted" style="font-size:.7rem;margin-top:2px">1 mark</div>
+                </div>
+                                                <div class="q-nav-item done" id="nav_5774" onclick="showQuestion(5774)">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="q-nav-num">Q4</span>
+                                                <i class="fas fa-check-circle q-nav-tick"></i>
+                                            </div>
+                    <div class="q-nav-type">Sequential Search</div>
+                    <div class="text-muted" style="font-size:.7rem;margin-top:2px">1 mark</div>
+                </div>
+                                                <div class="q-nav-item done" id="nav_5773" onclick="showQuestion(5773)">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="q-nav-num">Q5</span>
+                                                <i class="fas fa-check-circle q-nav-tick"></i>
+                                            </div>
+                    <div class="q-nav-type">Sequential Search</div>
+                    <div class="text-muted" style="font-size:.7rem;margin-top:2px">1 mark</div>
+                </div>
+                                                <div class="q-nav-item done" id="nav_5787" onclick="showQuestion(5787)">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="q-nav-num">Q6</span>
+                                                <i class="fas fa-check-circle q-nav-tick"></i>
+                                            </div>
+                    <div class="q-nav-type">Brute Force String Matching</div>
+                    <div class="text-muted" style="font-size:.7rem;margin-top:2px">1 mark</div>
+                </div>
+                                                <div class="q-nav-item done" id="nav_5786" onclick="showQuestion(5786)">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="q-nav-num">Q7</span>
+                                                <i class="fas fa-check-circle q-nav-tick"></i>
+                                            </div>
+                    <div class="q-nav-type">Brute Force String Matching</div>
+                    <div class="text-muted" style="font-size:.7rem;margin-top:2px">1 mark</div>
+                </div>
+                                                <div class="q-nav-item done" id="nav_5785" onclick="showQuestion(5785)">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="q-nav-num">Q8</span>
+                                                <i class="fas fa-check-circle q-nav-tick"></i>
+                                            </div>
+                    <div class="q-nav-type">Brute Force String Matching</div>
+                    <div class="text-muted" style="font-size:.7rem;margin-top:2px">1 mark</div>
+                </div>
+                                                <div class="q-nav-item done" id="nav_5784" onclick="showQuestion(5784)">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="q-nav-num">Q9</span>
+                                                <i class="fas fa-check-circle q-nav-tick"></i>
+                                            </div>
+                    <div class="q-nav-type">Brute Force String Matching</div>
+                    <div class="text-muted" style="font-size:.7rem;margin-top:2px">1 mark</div>
+                </div>
+                                                <div class="q-nav-item done" id="nav_5783" onclick="showQuestion(5783)">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="q-nav-num">Q10</span>
+                                                <i class="fas fa-check-circle q-nav-tick"></i>
+                                            </div>
+                    <div class="q-nav-type">Brute Force String Matching</div>
+                    <div class="text-muted" style="font-size:.7rem;margin-top:2px">1 mark</div>
+                </div>
+                                <div class="mt-3 pt-2 border-top">
+                    <div class="text-muted small">
+                        <span id="answered-count">10/10 answered</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Content -->
+        <div class="q-content">
+                        <div id="qpanel_5777" class="q-panel-block" style="display: none;">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="badge rounded-pill" style="background:#e7f1ff;color:#1d4ed8;font-size:.75rem">Q1</span>
+                            <span class="fw-bold fs-6">Sequential Search</span>
+                            <span class="ms-auto text-muted small">1 mark</span>
+                        </div>
+                        <div class="q-text-body p-3 rounded-3 mb-4" style="background:#f8fafc;border:1px solid #e9ecef">
+                            <p>Implement Sequential Search and analyze its performance.</p><p>Input:<br>
+Array:<br>
+45, 23, 67, 12, 89, 34, 56, 78, 90, 11,<br>
+29, 73, 18, 64, 37</p><p>Search Keys:<br>
+73<br>
+18<br>
+100</p><p>Tasks:<br>
+- Show each comparison.<br>
+- Count comparisons for every search.<br>
+- Identify best, average, and worst cases.<br>
+- Determine:<br>
+- Best-case complexity<br>
+- Average-case complexity<br>
+- Worst-case complexity<br>
+- Space complexity</p>                        </div>
+
+                                                <!-- Programming -->
+                                                <div class="row g-3">
+                            <div class="col-lg-8">
+                                <label class="form-label fw-semibold">Your Code</label>
+                                <textarea class="code-area" id="code_5777" rows="16" readonly="" style="display: none;">def sequential_search(arr, key):
+    comparisons = 0
+    found_index = -1
+    
+    print(f"Searching for key: {key}")
+    for i in range(len(arr)):
+        comparisons += 1
+        print(f"Comparison {comparisons}: Is {arr[i]} == {key}? {'Yes' if arr[i] == key else 'No'}")
+        if arr[i] == key:
+            found_index = i
+            break
+            
+    if found_index != -1:
+        print(f"Result: Key {key} found at index {found_index}.")
+    else:
+        print(f"Result: Key {key} not found in the array.")
+    
+    print(f"Total comparisons for this search: {comparisons}\n")
+    return comparisons
+
+# Input Data
+array = [45, 23, 67, 12, 89, 34, 56, 78, 90, 11, 29, 73, 18, 64, 37]
+search_keys = [73, 18, 100]
+
+# Perform searches
+total_comparisons = 0
+for key in search_keys:
+    total_comparisons += sequential_search(array, key)
+
+# Complexity Analysis Output
+print("--- Complexity Analysis ---")
+print("Best-case complexity: O(1) (Key found at the first position)")
+print("Average-case complexity: O(n) (Key found somewhere in the middle)")
+print("Worst-case complexity: O(n) (Key at the end or not present)")
+print("Space complexity: O(1) (No extra space used relative to input size)")</textarea><div class="CodeMirror cm-s-dracula" style="width: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 33px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" disabled="" readonly="" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="bottom: 16px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="display: block; right: 0px; left: 29px;"><div style="height: 100%; min-height: 1px; width: 871px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true" style="height: 16px; width: 16px;"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 29px; min-width: 871.4px; margin-bottom: -16px; border-right-width: 34px; min-height: 764px; padding-right: 0px; padding-bottom: 16px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 21.6px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">sequential_search</span>(<span class="cm-variable">arr</span>, <span class="cm-variable">key</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable">comparisons</span> <span class="cm-operator">=</span> <span class="cm-number">0</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable">found_index</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-number">1</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    </span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-builtin">print</span>(<span class="cm-string">f"Searching for key: </span>{<span class="cm-variable">key</span>}<span class="cm-string">"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-keyword">for</span> <span class="cm-variable">i</span> <span class="cm-keyword">in</span> <span class="cm-builtin">range</span>(<span class="cm-builtin">len</span>(<span class="cm-variable">arr</span>)):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">        <span class="cm-variable">comparisons</span> <span class="cm-operator">+=</span> <span class="cm-number">1</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">        <span class="cm-builtin">print</span>(<span class="cm-string">f"Comparison </span>{<span class="cm-variable">comparisons</span>}<span class="cm-string">: Is </span>{<span class="cm-variable">arr</span>[<span class="cm-variable">i</span>]}<span class="cm-string"> == </span>{<span class="cm-variable">key</span>}<span class="cm-string">? </span>{<span class="cm-string">'Yes'</span> <span class="cm-keyword">if</span> <span class="cm-variable">arr</span>[<span class="cm-variable">i</span>] <span class="cm-operator">==</span> <span class="cm-variable">key</span> <span class="cm-keyword">else</span> <span class="cm-string">'No'</span>}<span class="cm-string">"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">        <span class="cm-keyword">if</span> <span class="cm-variable">arr</span>[<span class="cm-variable">i</span>] <span class="cm-operator">==</span> <span class="cm-variable">key</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">            <span class="cm-variable">found_index</span> <span class="cm-operator">=</span> <span class="cm-variable">i</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">            <span class="cm-keyword">break</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">12</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">            </span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">13</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-keyword">if</span> <span class="cm-variable">found_index</span> <span class="cm-operator">!=</span> <span class="cm-operator">-</span><span class="cm-number">1</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">14</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">        <span class="cm-builtin">print</span>(<span class="cm-string">f"Result: Key </span>{<span class="cm-variable">key</span>}<span class="cm-string"> found at index </span>{<span class="cm-variable">found_index</span>}<span class="cm-string">."</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">15</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-keyword">else</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">16</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">        <span class="cm-builtin">print</span>(<span class="cm-string">f"Result: Key </span>{<span class="cm-variable">key</span>}<span class="cm-string"> not found in the array."</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">17</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    </span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">18</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-builtin">print</span>(<span class="cm-string">f"Total comparisons for this search: </span>{<span class="cm-variable">comparisons</span>}<span class="cm-string">\n"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">19</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">comparisons</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">20</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">21</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Input Data</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">22</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">array</span> <span class="cm-operator">=</span> [<span class="cm-number">45</span>, <span class="cm-number">23</span>, <span class="cm-number">67</span>, <span class="cm-number">12</span>, <span class="cm-number">89</span>, <span class="cm-number">34</span>, <span class="cm-number">56</span>, <span class="cm-number">78</span>, <span class="cm-number">90</span>, <span class="cm-number">11</span>, <span class="cm-number">29</span>, <span class="cm-number">73</span>, <span class="cm-number">18</span>, <span class="cm-number">64</span>, <span class="cm-number">37</span>]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">23</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">search_keys</span> <span class="cm-operator">=</span> [<span class="cm-number">73</span>, <span class="cm-number">18</span>, <span class="cm-number">100</span>]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">24</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">25</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Perform searches</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">26</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">total_comparisons</span> <span class="cm-operator">=</span> <span class="cm-number">0</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">27</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">for</span> <span class="cm-variable">key</span> <span class="cm-keyword">in</span> <span class="cm-variable">search_keys</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">28</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable">total_comparisons</span> <span class="cm-operator">+=</span> <span class="cm-variable">sequential_search</span>(<span class="cm-variable">array</span>, <span class="cm-variable">key</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">29</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">30</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Complexity Analysis Output</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">31</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">print</span>(<span class="cm-string">"--- Complexity Analysis ---"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">32</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">print</span>(<span class="cm-string">"Best-case complexity: O(1) (Key found at the first position)"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">33</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">print</span>(<span class="cm-string">"Average-case complexity: O(n) (Key found somewhere in the middle)"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">34</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">print</span>(<span class="cm-string">"Worst-case complexity: O(n) (Key at the end or not present)"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">35</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">print</span>(<span class="cm-string">"Space complexity: O(1) (No extra space used relative to input size)"</span>)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 34px; width: 1px; border-bottom: 16px solid transparent; top: 764px;"></div><div class="CodeMirror-gutters" style="height: 814px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div>
+                            </div>
+                            <div class="col-lg-4 d-flex flex-column gap-3">
+                                <div>
+                                    <label class="form-label fw-semibold">Input</label>
+                                    <textarea class="form-control font-monospace" id="input_5777" rows="4" placeholder="stdin input" style="font-size:.85rem" readonly=""></textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label fw-semibold">Output</label>
+                                    <textarea class="output-area" id="output_5777" rows="5" readonly="">Searching for key: 73
+Comparison 1: Is 45 == 73? No
+Comparison 2: Is 23 == 73? No
+Comparison 3: Is 67 == 73? No
+Comparison 4: Is 12 == 73? No
+Comparison 5: Is 89 == 73? No
+Comparison 6: Is 34 == 73? No
+Comparison 7: Is 56 == 73? No
+Comparison 8: Is 78 == 73? No
+Comparison 9: Is 90 == 73? No
+Comparison 10: Is 11 == 73? No
+Comparison 11: Is 29 == 73? No
+Comparison 12: Is 73 == 73? Yes
+Result: Key 73 found at index 11.
+Total comparisons for this search: 12
+
+Searching for key: 18
+Comparison 1: Is 45 == 18? No
+Comparison 2: Is 23 == 18? No
+Comparison 3: Is 67 == 18? No
+Comparison 4: Is 12 == 18? No
+Comparison 5: Is 89 == 18? No
+Comparison 6: Is 34 == 18? No
+Comparison 7: Is 56 == 18? No
+Comparison 8: Is 78 == 18? No
+Comparison 9: Is 90 == 18? No
+Comparison 10: Is 11 == 18? No
+Comparison 11: Is 29 == 18? No
+Comparison 12: Is 73 == 18? No
+Comparison 13: Is 18 == 18? Yes
+Result: Key 18 found at index 12.
+Total comparisons for this search: 13
+
+Searching for key: 100
+Comparison 1: Is 45 == 100? No
+Comparison 2: Is 23 == 100? No
+Comparison 3: Is 67 == 100? No
+Comparison 4: Is 12 == 100? No
+Comparison 5: Is 89 == 100? No
+Comparison 6: Is 34 == 100? No
+Comparison 7: Is 56 == 100? No
+Comparison 8: Is 78 == 100? No
+Comparison 9: Is 90 == 100? No
+Comparison 10: Is 11 == 100? No
+Comparison 11: Is 29 == 100? No
+Comparison 12: Is 73 == 100? No
+Comparison 13: Is 18 == 100? No
+Comparison 14: Is 64 == 100? No
+Comparison 15: Is 37 == 100? No
+Result: Key 100 not found in the array.
+Total comparisons for this search: 15
+
+--- Complexity Analysis ---
+Best-case complexity: O(1) (Key found at the first position)
+Average-case complexity: O(n) (Key found somewhere in the middle)
+Worst-case complexity: O(n) (Key at the end or not present)
+Space complexity: O(1) (No extra space used relative to input size)
+</textarea>
+                                </div>
+                                                            </div>
+                        </div>
+                                                <div class="mt-3">
+                            <span class="badge bg-success px-3 py-2 rounded-pill" style="font-size:.9rem">
+                                <i class="fas fa-check-circle me-1"></i> Submitted
+                            </span>
+                        </div>
+                        
+                                            </div>
+                </div>
+            </div>
+                        <div id="qpanel_5776" class="q-panel-block" style="display: block;">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="badge rounded-pill" style="background:#e7f1ff;color:#1d4ed8;font-size:.75rem">Q2</span>
+                            <span class="fw-bold fs-6">Sequential Search</span>
+                            <span class="ms-auto text-muted small">1 mark</span>
+                        </div>
+                        <div class="q-text-body p-3 rounded-3 mb-4" style="background:#f8fafc;border:1px solid #e9ecef">
+                            <p>Write a program to perform Sequential Search on a 2-D matrix.</p><p>Input:<br>
+12  8  15<br>
+5  18  27<br>
+9  11  24</p><p>Key = 24</p><p>Output:<br>
+Element found at Row 3 Column 3</p>                        </div>
+
+                                                <!-- Programming -->
+                                                <div class="row g-3">
+                            <div class="col-lg-8">
+                                <label class="form-label fw-semibold">Your Code</label>
+                                <textarea class="code-area" id="code_5776" rows="16" readonly="" style="display: none;">def sequential_search_2d(matrix, key):
+    for i in range(len(matrix)):          # rows
+        for j in range(len(matrix[i])):   # columns
+            if matrix[i][j] == key:
+                return i + 1, j + 1      # 1-based indexing
+    return None
+
+# Input matrix (as in the question)
+matrix = [
+    [12, 8, 15],
+    [5, 18, 27],
+    [9, 11, 24]
+]
+
+key = 24
+
+result = sequential_search_2d(matrix, key)
+if result:
+    row, col = result
+    print(f"Element found at Row {row} Column {col}")
+else:
+    print("Element not found")</textarea><div class="CodeMirror cm-s-dracula" style="width: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 33px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" disabled="" readonly="" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 29px; min-width: 516.95px; margin-bottom: -16px; border-right-width: 34px; min-height: 483px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 21.6px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">sequential_search_2d</span>(<span class="cm-variable">matrix</span>, <span class="cm-variable">key</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-keyword">for</span> <span class="cm-variable">i</span> <span class="cm-keyword">in</span> <span class="cm-builtin">range</span>(<span class="cm-builtin">len</span>(<span class="cm-variable">matrix</span>)):          <span class="cm-comment"># rows</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">        <span class="cm-keyword">for</span> <span class="cm-variable">j</span> <span class="cm-keyword">in</span> <span class="cm-builtin">range</span>(<span class="cm-builtin">len</span>(<span class="cm-variable">matrix</span>[<span class="cm-variable">i</span>])):   <span class="cm-comment"># columns</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">            <span class="cm-keyword">if</span> <span class="cm-variable">matrix</span>[<span class="cm-variable">i</span>][<span class="cm-variable">j</span>] <span class="cm-operator">==</span> <span class="cm-variable">key</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">                <span class="cm-keyword">return</span> <span class="cm-variable">i</span> <span class="cm-operator">+</span> <span class="cm-number">1</span>, <span class="cm-variable">j</span> <span class="cm-operator">+</span> <span class="cm-number">1</span>      <span class="cm-comment"># 1-based indexing</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-keyword">None</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Input matrix (as in the question)</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">matrix</span> <span class="cm-operator">=</span> [</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    [<span class="cm-number">12</span>, <span class="cm-number">8</span>, <span class="cm-number">15</span>],</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    [<span class="cm-number">5</span>, <span class="cm-number">18</span>, <span class="cm-number">27</span>],</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">12</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    [<span class="cm-number">9</span>, <span class="cm-number">11</span>, <span class="cm-number">24</span>]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">13</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">14</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">15</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">key</span> <span class="cm-operator">=</span> <span class="cm-number">24</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">16</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">17</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">result</span> <span class="cm-operator">=</span> <span class="cm-variable">sequential_search_2d</span>(<span class="cm-variable">matrix</span>, <span class="cm-variable">key</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">18</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">if</span> <span class="cm-variable">result</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">19</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable">row</span>, <span class="cm-variable">col</span> <span class="cm-operator">=</span> <span class="cm-variable">result</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">20</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-builtin">print</span>(<span class="cm-string">f"Element found at Row </span>{<span class="cm-variable">row</span>}<span class="cm-string"> Column </span>{<span class="cm-variable">col</span>}<span class="cm-string">"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">21</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">else</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" aria-hidden="true" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">22</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-builtin">print</span>(<span class="cm-string">"Element not found"</span>)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 34px; width: 1px; border-bottom: 0px solid transparent; top: 483px;"></div><div class="CodeMirror-gutters" style="height: 517px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div>
+                            </div>
+                            <div class="col-lg-4 d-flex flex-column gap-3">
+                                <div>
+                                    <label class="form-label fw-semibold">Input</label>
+                                    <textarea class="form-control font-monospace" id="input_5776" rows="4" placeholder="stdin input" style="font-size:.85rem" readonly=""></textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label fw-semibold">Output</label>
+                                    <textarea class="output-area" id="output_5776" rows="5" readonly="">Element found at Row 3 Column 3
+</textarea>
+                                </div>
+                                                            </div>
+                        </div>
+                                                <div class="mt-3">
+                            <span class="badge bg-success px-3 py-2 rounded-pill" style="font-size:.9rem">
+                                <i class="fas fa-check-circle me-1"></i> Submitted
+                            </span>
+                        </div>
+                        
+                                            </div>
+                </div>
+            </div>
+                        <div id="qpanel_5775" class="q-panel-block" style="display:none">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="badge rounded-pill" style="background:#e7f1ff;color:#1d4ed8;font-size:.75rem">Q3</span>
+                            <span class="fw-bold fs-6">Sequential Search</span>
+                            <span class="ms-auto text-muted small">1 mark</span>
+                        </div>
+                        <div class="q-text-body p-3 rounded-3 mb-4" style="background:#f8fafc;border:1px solid #e9ecef">
+                            <p>Implement Sequential Search for string data.</p><p>Input:<br>
+Names:<br>
+Anu, Bala, Charan, Deepa, Esha, Farhan</p><p>Search Name:<br>
+Deepa</p><p>Output:<br>
+Name found at position 4</p>                        </div>
+
+                                                <!-- Programming -->
+                                                <div class="row g-3">
+                            <div class="col-lg-8">
+                                <label class="form-label fw-semibold">Your Code</label>
+                                <textarea class="code-area" id="code_5775" rows="16" readonly="" style="display: none;">def sequential_search_string(names_list, target):
+    # Iterate through the list with index
+    for i in range(len(names_list)):
+        # Check if the current name matches the target
+        if names_list[i].strip() == target.strip():
+            # Return position (index + 1 because positions are 1-based)
+            return i + 1
+    return -1
+
+# Input handling
+try:
+    # Reading the input names (assuming comma-separated as per your prompt)
+    names_input = input("Names:\n")
+    names = [name.strip() for name in names_input.split(',')]
+
+    # Reading the name to search for
+    search_name = input("\nSearch Name:\n").strip()
+
+    # Performing the search
+    result = sequential_search_string(names, search_name)
+
+    # Output formatting
+    if result != -1:
+        print(f"\nName found at position {result}")
+    else:
+        print("\nName not found")
+except EOFError:
+    pass</textarea><div class="CodeMirror cm-s-dracula" style="width: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" disabled="" readonly="" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;"><div style="position: relative;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"><pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-comment"># Reading the input names (assuming comma-separated as per your prompt)</span></span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code" role="presentation"></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px;"></div><div class="CodeMirror-gutters"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 1px;"></div></div></div></div>
+                            </div>
+                            <div class="col-lg-4 d-flex flex-column gap-3">
+                                <div>
+                                    <label class="form-label fw-semibold">Input</label>
+                                    <textarea class="form-control font-monospace" id="input_5775" rows="4" placeholder="stdin input" style="font-size:.85rem" readonly="">deepak,paul
+deepa</textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label fw-semibold">Output</label>
+                                    <textarea class="output-area" id="output_5775" rows="5" readonly="">Names:
+
+Search Name:
+
+Name not found
+</textarea>
+                                </div>
+                                                            </div>
+                        </div>
+                                                <div class="mt-3">
+                            <span class="badge bg-success px-3 py-2 rounded-pill" style="font-size:.9rem">
+                                <i class="fas fa-check-circle me-1"></i> Submitted
+                            </span>
+                        </div>
+                        
+                                            </div>
+                </div>
+            </div>
+                        <div id="qpanel_5774" class="q-panel-block" style="display:none">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="badge rounded-pill" style="background:#e7f1ff;color:#1d4ed8;font-size:.75rem">Q4</span>
+                            <span class="fw-bold fs-6">Sequential Search</span>
+                            <span class="ms-auto text-muted small">1 mark</span>
+                        </div>
+                        <div class="q-text-body p-3 rounded-3 mb-4" style="background:#f8fafc;border:1px solid #e9ecef">
+                            <p>Write a program to perform Sequential Search on an array of student register numbers.</p><p>Input:<br>
+Register Numbers:<br>
+101, 102, 103, 104, 105, 106<br>
+Search Key: 104</p><p>Output:<br>
+Register Number found at position 4</p>                        </div>
+
+                                                <!-- Programming -->
+                                                <div class="row g-3">
+                            <div class="col-lg-8">
+                                <label class="form-label fw-semibold">Your Code</label>
+                                <textarea class="code-area" id="code_5774" rows="16" readonly="" style="display: none;">arr = [101, 102, 103, 104, 105, 106]
+key = 104
+
+pos = -1
+for i in range(len(arr)):
+    if arr[i] == key:
+        pos = i + 1   # position starts from 1
+        break
+
+if pos != -1:
+    print("Register Number found at position", pos)
+else:
+    print("Register Number not found")</textarea><div class="CodeMirror cm-s-dracula" style="width: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" disabled="" readonly="" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;"><div style="position: relative;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"><pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-builtin">print</span>(<span class="cm-string">"Register Number found at position"</span>, <span class="cm-variable">pos</span>)</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code" role="presentation"></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px;"></div><div class="CodeMirror-gutters"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 1px;"></div></div></div></div>
+                            </div>
+                            <div class="col-lg-4 d-flex flex-column gap-3">
+                                <div>
+                                    <label class="form-label fw-semibold">Input</label>
+                                    <textarea class="form-control font-monospace" id="input_5774" rows="4" placeholder="stdin input" style="font-size:.85rem" readonly=""></textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label fw-semibold">Output</label>
+                                    <textarea class="output-area" id="output_5774" rows="5" readonly="">Register Number found at position 4
+</textarea>
+                                </div>
+                                                            </div>
+                        </div>
+                                                <div class="mt-3">
+                            <span class="badge bg-success px-3 py-2 rounded-pill" style="font-size:.9rem">
+                                <i class="fas fa-check-circle me-1"></i> Submitted
+                            </span>
+                        </div>
+                        
+                                            </div>
+                </div>
+            </div>
+                        <div id="qpanel_5773" class="q-panel-block" style="display:none">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="badge rounded-pill" style="background:#e7f1ff;color:#1d4ed8;font-size:.75rem">Q5</span>
+                            <span class="fw-bold fs-6">Sequential Search</span>
+                            <span class="ms-auto text-muted small">1 mark</span>
+                        </div>
+                        <div class="q-text-body p-3 rounded-3 mb-4" style="background:#f8fafc;border:1px solid #e9ecef">
+                            <p>Implement Sentinel Sequential Search and compare it with ordinary Sequential Search.</p><p>Input:<br>
+Array: 14, 9, 22, 35, 18, 41, 27<br>
+Key: 18</p><p>Output:<br>
+Position found<br>
+Comparison count</p>                        </div>
+
+                                                <!-- Programming -->
+                                                <div class="row g-3">
+                            <div class="col-lg-8">
+                                <label class="form-label fw-semibold">Your Code</label>
+                                <textarea class="code-area" id="code_5773" rows="16" readonly="" style="display: none;">def ordinary_sequential_search(arr, key):
+    comparisons = 0
+    for i in range(len(arr)):
+        comparisons += 1
+        if arr[i] == key:
+            return i, comparisons
+    return -1, comparisons
+
+def sentinel_sequential_search(arr, key):
+    n = len(arr)
+    if n == 0:
+        return -1, 0
+    
+    # Copy array to avoid modifying the original input
+    temp_arr = list(arr)
+    # Place the sentinel at the end
+    last_val = temp_arr[n-1]
+    temp_arr[n-1] = key
+    
+    comparisons = 0
+    i = 0
+    while True:
+        comparisons += 1
+        if temp_arr[i] == key:
+            break
+        i += 1
+    
+    # Check if the found element is the actual key or the sentinel
+    # We must account for the comparison made at the sentinel position
+    if i &lt; n - 1 or (i == n - 1 and last_val == key):
+        return i, comparisons
+    else:
+        return -1, comparisons
+
+def main():
+    # Input data from your question
+    arr = [14, 9, 22, 35, 18, 41, 27]
+    key = 18
+
+    # Ordinary Search
+    ord_pos, ord_comp = ordinary_sequential_search(arr, key)
+    
+    # Sentinel Search
+    sent_pos, sent_comp = sentinel_sequential_search(arr, key)
+
+    # Output as requested
+    # Note: The output format asks for "Position found" and "Comparison count"
+    # Usually, in labs, they want to see the result of the Sentinel Search specifically.
+    if sent_pos != -1:
+        print("Position found")
+    else:
+        print("Not found")
+    
+    print(sent_comp)
+
+if __name__ == "__main__":
+    main()</textarea><div class="CodeMirror cm-s-dracula" style="width: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" disabled="" readonly="" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;"><div style="position: relative;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"><pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-comment"># Usually, in labs, they want to see the result of the Sentinel Search specifically.</span></span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code" role="presentation"></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px;"></div><div class="CodeMirror-gutters"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 1px;"></div></div></div></div>
+                            </div>
+                            <div class="col-lg-4 d-flex flex-column gap-3">
+                                <div>
+                                    <label class="form-label fw-semibold">Input</label>
+                                    <textarea class="form-control font-monospace" id="input_5773" rows="4" placeholder="stdin input" style="font-size:.85rem" readonly=""></textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label fw-semibold">Output</label>
+                                    <textarea class="output-area" id="output_5773" rows="5" readonly="">Position found
+5
+</textarea>
+                                </div>
+                                                            </div>
+                        </div>
+                                                <div class="mt-3">
+                            <span class="badge bg-success px-3 py-2 rounded-pill" style="font-size:.9rem">
+                                <i class="fas fa-check-circle me-1"></i> Submitted
+                            </span>
+                        </div>
+                        
+                                            </div>
+                </div>
+            </div>
+                        <div id="qpanel_5787" class="q-panel-block" style="display:none">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="badge rounded-pill" style="background:#e7f1ff;color:#1d4ed8;font-size:.75rem">Q6</span>
+                            <span class="fw-bold fs-6">Brute Force String Matching</span>
+                            <span class="ms-auto text-muted small">1 mark</span>
+                        </div>
+                        <div class="q-text-body p-3 rounded-3 mb-4" style="background:#f8fafc;border:1px solid #e9ecef">
+                            <p>Write a complete program for Brute Force String Matching and perform complexity analysis.</p><p>Input:<br>
+- Text = "TTATAGATCTCGTATTCTTTATAGATCTCCTATTCTT"<br>
+- Pattern = "TATCTT"</p><p>Tasks:<br>
+- Find all occurrences of the pattern.<br>
+- Count total comparisons.<br>
+- Display the shifting process.<br>
+- Analyze:<br>
+- Best-case complexity<br>
+- Worst-case complexity<br>
+- Space complexity</p>                        </div>
+
+                                                <!-- Programming -->
+                                                <div class="row g-3">
+                            <div class="col-lg-8">
+                                <label class="form-label fw-semibold">Your Code</label>
+                                <textarea class="code-area" id="code_5787" rows="16" readonly="" style="display: none;">def brute_force_string_matching(text, pattern):
+    n = len(text)
+    m = len(pattern)
+
+    occurrences = []
+    total_comparisons = 0
+
+    print("Text   :", text)
+    print("Pattern:", pattern)
+    print("\nShifting process (each shift tries to match pattern against text):\n")
+
+    for shift in range(n - m + 1):
+        j = 0
+        window = text[shift:shift + m]
+
+        print(f"Shift = {shift} (text window = '{window}')")
+
+        while j &lt; m:
+            total_comparisons += 1
+            print(f"  Compare pattern[{j}]='{pattern[j]}' with text[{shift+j}]='{text[shift+j]}'", end="")
+
+            if pattern[j] == text[shift + j]:
+                print(" -&gt; Match")
+                j += 1
+            else:
+                print(" -&gt; Mismatch")
+                break
+
+        if j == m:
+            occurrences.append(shift)
+            print(f"  Pattern found at index {shift}\n")
+        else:
+            print("  Pattern not found at this shift.\n")
+
+    return occurrences, total_comparisons
+
+
+def main():
+    text = "TTATAGATCTCGTATTCTTTATAGATCTCCTATTCTT"
+    pattern = "TATCTT"
+
+    occurrences, comparisons = brute_force_string_matching(text, pattern)
+
+    print("========== RESULT ==========")
+    if occurrences:
+        print("Occurrences at indices:", occurrences)
+    else:
+        print("No occurrences found.")
+    print("Total comparisons:", comparisons)
+    print("=============================")
+
+    print("\n========== COMPLEXITY ANALYSIS ==========")
+    print("Best-case time complexity: O(n)")
+    print("Worst-case time complexity: O((n-m+1) * m) = O(n*m)")
+    print("Space complexity: O(1) (excluding input/output printing)")
+    print("===========================================")
+
+
+if __name__ == "__main__":
+    main()</textarea><div class="CodeMirror cm-s-dracula" style="width: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" disabled="" readonly="" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;"><div style="position: relative;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"><pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;">            <span class="cm-builtin">print</span>(<span class="cm-string">f"  Compare pattern[</span>{<span class="cm-variable">j</span>}<span class="cm-string">]='</span>{<span class="cm-variable">pattern</span>[<span class="cm-variable">j</span>]}<span class="cm-string">' with text[</span>{<span class="cm-variable">shift</span><span class="cm-operator">+</span><span class="cm-variable">j</span>}<span class="cm-string">]='</span>{<span class="cm-variable">text</span>[<span class="cm-variable">shift</span><span class="cm-operator">+</span><span class="cm-variable">j</span>]}<span class="cm-string">'"</span>, <span class="cm-variable">end</span><span class="cm-operator">=</span><span class="cm-string">""</span>)</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code" role="presentation"></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px;"></div><div class="CodeMirror-gutters"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 1px;"></div></div></div></div>
+                            </div>
+                            <div class="col-lg-4 d-flex flex-column gap-3">
+                                <div>
+                                    <label class="form-label fw-semibold">Input</label>
+                                    <textarea class="form-control font-monospace" id="input_5787" rows="4" placeholder="stdin input" style="font-size:.85rem" readonly=""></textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label fw-semibold">Output</label>
+                                    <textarea class="output-area" id="output_5787" rows="5" readonly="">Text   : TTATAGATCTCGTATTCTTTATAGATCTCCTATTCTT
+Pattern: TATCTT
+
+Shifting process (each shift tries to match pattern against text):
+
+Shift = 0 (text window = 'TTATAG')
+  Compare pattern[0]='T' with text[0]='T' -&gt; Match
+  Compare pattern[1]='A' with text[1]='T' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 1 (text window = 'TATAGA')
+  Compare pattern[0]='T' with text[1]='T' -&gt; Match
+  Compare pattern[1]='A' with text[2]='A' -&gt; Match
+  Compare pattern[2]='T' with text[3]='T' -&gt; Match
+  Compare pattern[3]='C' with text[4]='A' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 2 (text window = 'ATAGAT')
+  Compare pattern[0]='T' with text[2]='A' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 3 (text window = 'TAGATC')
+  Compare pattern[0]='T' with text[3]='T' -&gt; Match
+  Compare pattern[1]='A' with text[4]='A' -&gt; Match
+  Compare pattern[2]='T' with text[5]='G' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 4 (text window = 'AGATCT')
+  Compare pattern[0]='T' with text[4]='A' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 5 (text window = 'GATCTC')
+  Compare pattern[0]='T' with text[5]='G' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 6 (text window = 'ATCTCG')
+  Compare pattern[0]='T' with text[6]='A' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 7 (text window = 'TCTCGT')
+  Compare pattern[0]='T' with text[7]='T' -&gt; Match
+  Compare pattern[1]='A' with text[8]='C' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 8 (text window = 'CTCGTA')
+  Compare pattern[0]='T' with text[8]='C' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 9 (text window = 'TCGTAT')
+  Compare pattern[0]='T' with text[9]='T' -&gt; Match
+  Compare pattern[1]='A' with text[10]='C' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 10 (text window = 'CGTATT')
+  Compare pattern[0]='T' with text[10]='C' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 11 (text window = 'GTATTC')
+  Compare pattern[0]='T' with text[11]='G' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 12 (text window = 'TATTCT')
+  Compare pattern[0]='T' with text[12]='T' -&gt; Match
+  Compare pattern[1]='A' with text[13]='A' -&gt; Match
+  Compare pattern[2]='T' with text[14]='T' -&gt; Match
+  Compare pattern[3]='C' with text[15]='T' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 13 (text window = 'ATTCTT')
+  Compare pattern[0]='T' with text[13]='A' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 14 (text window = 'TTCTTT')
+  Compare pattern[0]='T' with text[14]='T' -&gt; Match
+  Compare pattern[1]='A' with text[15]='T' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 15 (text window = 'TCTTTA')
+  Compare pattern[0]='T' with text[15]='T' -&gt; Match
+  Compare pattern[1]='A' with text[16]='C' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 16 (text window = 'CTTTAT')
+  Compare pattern[0]='T' with text[16]='C' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 17 (text window = 'TTTATA')
+  Compare pattern[0]='T' with text[17]='T' -&gt; Match
+  Compare pattern[1]='A' with text[18]='T' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 18 (text window = 'TTATAG')
+  Compare pattern[0]='T' with text[18]='T' -&gt; Match
+  Compare pattern[1]='A' with text[19]='T' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 19 (text window = 'TATAGA')
+  Compare pattern[0]='T' with text[19]='T' -&gt; Match
+  Compare pattern[1]='A' with text[20]='A' -&gt; Match
+  Compare pattern[2]='T' with text[21]='T' -&gt; Match
+  Compare pattern[3]='C' with text[22]='A' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 20 (text window = 'ATAGAT')
+  Compare pattern[0]='T' with text[20]='A' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 21 (text window = 'TAGATC')
+  Compare pattern[0]='T' with text[21]='T' -&gt; Match
+  Compare pattern[1]='A' with text[22]='A' -&gt; Match
+  Compare pattern[2]='T' with text[23]='G' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 22 (text window = 'AGATCT')
+  Compare pattern[0]='T' with text[22]='A' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 23 (text window = 'GATCTC')
+  Compare pattern[0]='T' with text[23]='G' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 24 (text window = 'ATCTCC')
+  Compare pattern[0]='T' with text[24]='A' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 25 (text window = 'TCTCCT')
+  Compare pattern[0]='T' with text[25]='T' -&gt; Match
+  Compare pattern[1]='A' with text[26]='C' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 26 (text window = 'CTCCTA')
+  Compare pattern[0]='T' with text[26]='C' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 27 (text window = 'TCCTAT')
+  Compare pattern[0]='T' with text[27]='T' -&gt; Match
+  Compare pattern[1]='A' with text[28]='C' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 28 (text window = 'CCTATT')
+  Compare pattern[0]='T' with text[28]='C' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 29 (text window = 'CTATTC')
+  Compare pattern[0]='T' with text[29]='C' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 30 (text window = 'TATTCT')
+  Compare pattern[0]='T' with text[30]='T' -&gt; Match
+  Compare pattern[1]='A' with text[31]='A' -&gt; Match
+  Compare pattern[2]='T' with text[32]='T' -&gt; Match
+  Compare pattern[3]='C' with text[33]='T' -&gt; Mismatch
+  Pattern not found at this shift.
+
+Shift = 31 (text window = 'ATTCTT')
+  Compare pattern[0]='T' with text[31]='A' -&gt; Mismatch
+  Pattern not found at this shift.
+
+========== RESULT ==========
+No occurrences found.
+Total comparisons: 57
+=============================
+
+========== COMPLEXITY ANALYSIS ==========
+Best-case time complexity: O(n)
+Worst-case time complexity: O((n-m+1) * m) = O(n*m)
+Space complexity: O(1) (excluding input/output printing)
+===========================================
+</textarea>
+                                </div>
+                                                            </div>
+                        </div>
+                                                <div class="mt-3">
+                            <span class="badge bg-success px-3 py-2 rounded-pill" style="font-size:.9rem">
+                                <i class="fas fa-check-circle me-1"></i> Submitted
+                            </span>
+                        </div>
+                        
+                                            </div>
+                </div>
+            </div>
+                        <div id="qpanel_5786" class="q-panel-block" style="display:none">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="badge rounded-pill" style="background:#e7f1ff;color:#1d4ed8;font-size:.75rem">Q7</span>
+                            <span class="fw-bold fs-6">Brute Force String Matching</span>
+                            <span class="ms-auto text-muted small">1 mark</span>
+                        </div>
+                        <div class="q-text-body p-3 rounded-3 mb-4" style="background:#f8fafc;border:1px solid #e9ecef">
+                            <p>Implement Brute Force String Matching and display every alignment of the pattern with the text.</p><p>Input:<br>
+- Text = "ABCDABCABCDA"<br>
+- Pattern = "ABCDA"</p><p>Output:<br>
+- Alignment number<br>
+- Matching result<br>
+- Pattern occurrence positions</p>                        </div>
+
+                                                <!-- Programming -->
+                                                <div class="row g-3">
+                            <div class="col-lg-8">
+                                <label class="form-label fw-semibold">Your Code</label>
+                                <textarea class="code-area" id="code_5786" rows="16" readonly="" style="display: none;">def brute_force_string_matching(text, pattern):
+    n = len(text)
+    m = len(pattern)
+    occurrences = []
+
+    # Loop through every possible alignment
+    # An alignment can start from index 0 up to (n - m)
+    for i in range(n - m + 1):
+        match = True
+        # Check if the pattern matches the text at the current alignment
+        for j in range(m):
+            if text[i + j] != pattern[j]:
+                match = False
+                break
+        
+        # Display the alignment details
+        alignment_number = i + 1
+        if match:
+            print(f"Alignment {alignment_number}: YES")
+            occurrences.append(i)
+        else:
+            print(f"Alignment {alignment_number}: NO")
+
+    # Display the pattern occurrence positions
+    print("\nPattern occurrence positions:")
+    print(occurrences)
+
+# Input values from your question
+text_input = "ABCDABCABCDA"
+pattern_input = "ABCDA"
+
+# Execute the function
+brute_force_string_matching(text_input, pattern_input)</textarea><div class="CodeMirror cm-s-dracula" style="width: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" disabled="" readonly="" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;"><div style="position: relative;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"><pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;">        <span class="cm-comment"># Check if the pattern matches the text at the current alignment</span></span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code" role="presentation"></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px;"></div><div class="CodeMirror-gutters"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 1px;"></div></div></div></div>
+                            </div>
+                            <div class="col-lg-4 d-flex flex-column gap-3">
+                                <div>
+                                    <label class="form-label fw-semibold">Input</label>
+                                    <textarea class="form-control font-monospace" id="input_5786" rows="4" placeholder="stdin input" style="font-size:.85rem" readonly=""></textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label fw-semibold">Output</label>
+                                    <textarea class="output-area" id="output_5786" rows="5" readonly="">Alignment 1: YES
+Alignment 2: NO
+Alignment 3: NO
+Alignment 4: NO
+Alignment 5: NO
+Alignment 6: NO
+Alignment 7: NO
+Alignment 8: YES
+
+Pattern occurrence positions:
+[0, 7]
+</textarea>
+                                </div>
+                                                            </div>
+                        </div>
+                                                <div class="mt-3">
+                            <span class="badge bg-success px-3 py-2 rounded-pill" style="font-size:.9rem">
+                                <i class="fas fa-check-circle me-1"></i> Submitted
+                            </span>
+                        </div>
+                        
+                                            </div>
+                </div>
+            </div>
+                        <div id="qpanel_5785" class="q-panel-block" style="display:none">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="badge rounded-pill" style="background:#e7f1ff;color:#1d4ed8;font-size:.75rem">Q8</span>
+                            <span class="fw-bold fs-6">Brute Force String Matching</span>
+                            <span class="ms-auto text-muted small">1 mark</span>
+                        </div>
+                        <div class="q-text-body p-3 rounded-3 mb-4" style="background:#f8fafc;border:1px solid #e9ecef">
+                            <p>Write a program to compare the execution of Brute Force String Matching for:<br>
+- Successful search<br>
+- Unsuccessful search</p><p>Input:<br>
+- Text = "PROGRAMMINGLAB"<br>
+- Pattern 1 = "LAB"<br>
+- Pattern 2 = "TEST"</p><p>Display the comparison count for both cases.</p>                        </div>
+
+                                                <!-- Programming -->
+                                                <div class="row g-3">
+                            <div class="col-lg-8">
+                                <label class="form-label fw-semibold">Your Code</label>
+                                <textarea class="code-area" id="code_5785" rows="16" readonly="" style="display: none;">def brute_force_string_matching(text, pattern):
+    n = len(text)
+    m = len(pattern)
+    comparisons = 0
+    found = False
+
+    for i in range(n - m + 1):
+        match = True
+        for j in range(m):
+            comparisons += 1
+            if text[i + j] != pattern[j]:
+                match = False
+                break
+        if match:
+            found = True
+            break
+            
+    return found, comparisons
+
+# Input data
+text = "PROGRAMMINGLAB"
+pattern1 = "LAB"
+pattern2 = "TEST"
+
+# Execution for Successful Search
+success_found, success_count = brute_force_string_matching(text, pattern1)
+
+# Execution for Unsuccessful Search
+fail_found, fail_count = brute_force_string_matching(text, pattern2)
+
+# Displaying the results
+print(f"Successful Search ('{pattern1}'):")
+print(f"Found: {success_found}")
+print(f"Comparisons: {success_count}")
+
+print(f"\nUnsuccessful Search ('{pattern2}'):")
+print(f"Found: {fail_found}")
+print(f"Comparisons: {fail_count}")</textarea><div class="CodeMirror cm-s-dracula" style="width: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" disabled="" readonly="" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;"><div style="position: relative;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"><pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">success_found</span>, <span class="cm-variable">success_count</span> <span class="cm-operator">=</span> <span class="cm-variable">brute_force_string_matching</span>(<span class="cm-variable">text</span>, <span class="cm-variable">pattern1</span>)</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code" role="presentation"></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px;"></div><div class="CodeMirror-gutters"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 1px;"></div></div></div></div>
+                            </div>
+                            <div class="col-lg-4 d-flex flex-column gap-3">
+                                <div>
+                                    <label class="form-label fw-semibold">Input</label>
+                                    <textarea class="form-control font-monospace" id="input_5785" rows="4" placeholder="stdin input" style="font-size:.85rem" readonly=""></textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label fw-semibold">Output</label>
+                                    <textarea class="output-area" id="output_5785" rows="5" readonly="">Successful Search ('LAB'):
+Found: True
+Comparisons: 14
+
+Unsuccessful Search ('TEST'):
+Found: False
+Comparisons: 11
+</textarea>
+                                </div>
+                                                            </div>
+                        </div>
+                                                <div class="mt-3">
+                            <span class="badge bg-success px-3 py-2 rounded-pill" style="font-size:.9rem">
+                                <i class="fas fa-check-circle me-1"></i> Submitted
+                            </span>
+                        </div>
+                        
+                                            </div>
+                </div>
+            </div>
+                        <div id="qpanel_5784" class="q-panel-block" style="display:none">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="badge rounded-pill" style="background:#e7f1ff;color:#1d4ed8;font-size:.75rem">Q9</span>
+                            <span class="fw-bold fs-6">Brute Force String Matching</span>
+                            <span class="ms-auto text-muted small">1 mark</span>
+                        </div>
+                        <div class="q-text-body p-3 rounded-3 mb-4" style="background:#f8fafc;border:1px solid #e9ecef">
+                            <p>Implement Brute Force String Matching for case-insensitive searching.</p><p>Input:<br>
+- Text = "DataStructuresAndAlgorithms"<br>
+- Pattern = "ALGORITHMS"</p><p>Output:<br>
+- Pattern found position</p>                        </div>
+
+                                                <!-- Programming -->
+                                                <div class="row g-3">
+                            <div class="col-lg-8">
+                                <label class="form-label fw-semibold">Your Code</label>
+                                <textarea class="code-area" id="code_5784" rows="16" readonly="" style="display: none;">text = "DataStructuresAndAlgorithms"
+pattern = "ALGORITHMS"
+
+# case-insensitive brute force string matching
+t = text.lower()
+p = pattern.lower()
+
+n = len(t)
+m = len(p)
+
+found = -1
+for i in range(n - m + 1):  # possible starting positions
+    j = 0
+    while j &lt; m and t[i + j] == p[j]:
+        j += 1
+    if j == m:
+        found = i
+        break
+
+if found != -1:
+    print(found)  # Pattern found position (0-based)
+else:
+    print("Pattern not found")</textarea><div class="CodeMirror cm-s-dracula" style="width: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" disabled="" readonly="" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;"><div style="position: relative;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"><pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">for</span> <span class="cm-variable">i</span> <span class="cm-keyword">in</span> <span class="cm-builtin">range</span>(<span class="cm-variable">n</span> <span class="cm-operator">-</span> <span class="cm-variable">m</span> <span class="cm-operator">+</span> <span class="cm-number">1</span>):  <span class="cm-comment"># possible starting positions</span></span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code" role="presentation"></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px;"></div><div class="CodeMirror-gutters"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 1px;"></div></div></div></div>
+                            </div>
+                            <div class="col-lg-4 d-flex flex-column gap-3">
+                                <div>
+                                    <label class="form-label fw-semibold">Input</label>
+                                    <textarea class="form-control font-monospace" id="input_5784" rows="4" placeholder="stdin input" style="font-size:.85rem" readonly=""></textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label fw-semibold">Output</label>
+                                    <textarea class="output-area" id="output_5784" rows="5" readonly="">17
+</textarea>
+                                </div>
+                                                            </div>
+                        </div>
+                                                <div class="mt-3">
+                            <span class="badge bg-success px-3 py-2 rounded-pill" style="font-size:.9rem">
+                                <i class="fas fa-check-circle me-1"></i> Submitted
+                            </span>
+                        </div>
+                        
+                                            </div>
+                </div>
+            </div>
+                        <div id="qpanel_5783" class="q-panel-block" style="display:none">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="badge rounded-pill" style="background:#e7f1ff;color:#1d4ed8;font-size:.75rem">Q10</span>
+                            <span class="fw-bold fs-6">Brute Force String Matching</span>
+                            <span class="ms-auto text-muted small">1 mark</span>
+                        </div>
+                        <div class="q-text-body p-3 rounded-3 mb-4" style="background:#f8fafc;border:1px solid #e9ecef">
+                            <p>Write a program that searches for a pattern in a text and reports the first occurrence only using Brute Force String Matching.</p><p>Input:<br>
+- Text = "COMPUTERSCIENCE"<br>
+- Pattern = "SCI"</p><p>Output:<br>
+- First occurrence position<br>
+- Number of comparisons</p>                        </div>
+
+                                                <!-- Programming -->
+                                                <div class="row g-3">
+                            <div class="col-lg-8">
+                                <label class="form-label fw-semibold">Your Code</label>
+                                <textarea class="code-area" id="code_5783" rows="16" readonly="" style="display: none;">def brute_force_string_matching(text, pattern):
+    n = len(text)
+    m = len(pattern)
+    comparisons = 0
+    occurrence_index = -1
+
+    for i in range(n - m + 1):
+        match = True
+        for j in range(m):
+            comparisons += 1
+            if text[i + j] != pattern[j]:
+                match = False
+                break
+        
+        if match:
+            occurrence_index = i
+            break
+            
+    return occurrence_index, comparisons
+
+# Input data
+text = "COMPUTERSCIENCE"
+pattern = "SCI"
+
+# Function call
+index, count = brute_force_string_matching(text, pattern)
+
+# Output formatting
+if index != -1:
+    print(f"First occurrence position: {index}")
+else:
+    print("Pattern not found")
+print(f"Number of comparisons: {count}")</textarea><div class="CodeMirror cm-s-dracula" style="width: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" disabled="" readonly="" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;"><div style="position: relative;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"><pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">index</span>, <span class="cm-variable">count</span> <span class="cm-operator">=</span> <span class="cm-variable">brute_force_string_matching</span>(<span class="cm-variable">text</span>, <span class="cm-variable">pattern</span>)</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code" role="presentation"></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px;"></div><div class="CodeMirror-gutters"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 1px;"></div></div></div></div>
+                            </div>
+                            <div class="col-lg-4 d-flex flex-column gap-3">
+                                <div>
+                                    <label class="form-label fw-semibold">Input</label>
+                                    <textarea class="form-control font-monospace" id="input_5783" rows="4" placeholder="stdin input" style="font-size:.85rem" readonly=""></textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label fw-semibold">Output</label>
+                                    <textarea class="output-area" id="output_5783" rows="5" readonly="">First occurrence position: 8
+Number of comparisons: 11
+</textarea>
+                                </div>
+                                                            </div>
+                        </div>
+                                                <div class="mt-3">
+                            <span class="badge bg-success px-3 py-2 rounded-pill" style="font-size:.9rem">
+                                <i class="fas fa-check-circle me-1"></i> Submitted
+                            </span>
+                        </div>
+                        
+                                            </div>
+                </div>
+            </div>
+                    </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="./LAB PROGRAM -TOPIC 3-1 Q2_files/codemirror.min.css">
+<link rel="stylesheet" href="./LAB PROGRAM -TOPIC 3-1 Q2_files/dracula.min.css">
+<script src="./LAB PROGRAM -TOPIC 3-1 Q2_files/codemirror.min.js.download"></script>
+<script src="./LAB PROGRAM -TOPIC 3-1 Q2_files/mode-clike.min.js.download"></script>
+<script src="./LAB PROGRAM -TOPIC 3-1 Q2_files/mode-python.min.js.download"></script>
+<script src="./LAB PROGRAM -TOPIC 3-1 Q2_files/addon-matchbrackets.min.js.download"></script>
+<script src="./LAB PROGRAM -TOPIC 3-1 Q2_files/addon-closebrackets.min.js.download"></script>
+<script>
+const CSRF          = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+const ASSIGNMENT_ID = 680;
+const CAN_SUBMIT    = true;
+const LANG          = "p";
+const IS_MULTILANG  = true;
+let   currentLang   = LANG;
+
+const CM_MODE_MAP = {
+    c:'text/x-csrc', cpp:'text/x-c++src',
+    p:'python', python:'python',
+    j:'text/x-java', java:'text/x-java'
+};
+const CM_MODE = CM_MODE_MAP[LANG] || 'text/x-csrc';
+
+function switchLang(lang) {
+    currentLang = lang;
+    const modeMap = {c:'text/x-csrc',cpp:'text/x-c++src',p:'python',j:'text/x-java'};
+    const mode = modeMap[lang] || 'text/x-csrc';
+    Object.values(editors).forEach(ed => ed.setOption('mode', mode));
+    document.querySelectorAll('#lang-switcher .btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+}
+const editors = {};
+
+// Initialise every code textarea as a CodeMirror editor
+document.querySelectorAll('textarea.code-area').forEach(ta => {
+    const qid = ta.id.replace('code_', '');
+    const isReadOnly = ta.hasAttribute('readonly');
+    editors[qid] = CodeMirror.fromTextArea(ta, {
+        mode:              CM_MODE,
+        theme:             'dracula',
+        lineNumbers:       true,
+        indentUnit:        4,
+        tabSize:           4,
+        matchBrackets:     true,
+        autoCloseBrackets: true,
+        readOnly:          isReadOnly ? 'nocursor' : false,
+        extraKeys:         { Tab: cm => cm.execCommand('insertSoftTab') }
+    });
+    editors[qid].setSize('100%', null);
+});
+
+let currentQid = null;
+const mcqSelections = {}; // question_id -> [selected letters]
+
+// Initialize MCQ selections from existing submissions
+
+const _qidList = [5777,5776,5775,5774,5773,5787,5786,5785,5784,5783];
+function nextQid(qid) {
+    const idx = _qidList.indexOf(qid);
+    return (idx >= 0 && idx < _qidList.length - 1) ? _qidList[idx + 1] : null;
+}
+
+function showQuestion(qid) {
+    document.querySelectorAll('.q-panel-block').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.q-nav-item').forEach(el => el.classList.remove('active'));
+    const panel = document.getElementById('qpanel_' + qid);
+    if (panel) panel.style.display = 'block';
+    const nav = document.getElementById('nav_' + qid);
+    if (nav) nav.classList.add('active');
+    currentQid = qid;
+    if (editors[qid]) setTimeout(() => editors[qid].refresh(), 10);
+}
+
+// Resume on the question that triggered the reload, or default to first
+const _resumeQid = sessionStorage.getItem('attempt_resume_qid');
+if (_resumeQid) {
+    sessionStorage.removeItem('attempt_resume_qid');
+    const _rqInt = parseInt(_resumeQid);
+    showQuestion(_qidList.includes(_rqInt) ? _rqInt : _qidList[0]);
+} else {
+    showQuestion(5777);
+}
+
+// ── MCQ ───────────────────────────────────────────────────
+function selectOption(qid, letter, isMultiple) {
+    if (!CAN_SUBMIT) return;
+    if (!mcqSelections[qid]) mcqSelections[qid] = [];
+    if (isMultiple) {
+        const idx = mcqSelections[qid].indexOf(letter);
+        if (idx > -1) mcqSelections[qid].splice(idx, 1);
+        else mcqSelections[qid].push(letter);
+    } else {
+        mcqSelections[qid] = [letter];
+    }
+    // Update UI
+    ['a','b','c','d'].forEach(l => {
+        const el = document.getElementById('opt_' + qid + '_' + l);
+        if (el) el.classList.toggle('selected', mcqSelections[qid].includes(l));
+    });
+}
+
+function submitMCQ(qid) {
+    const ans = (mcqSelections[qid] || []).sort().join(',');
+    if (!ans) { showMsg('mcq_msg_'+qid, 'Select an answer first.', 'danger'); return; }
+    postAnswer(qid, { student_answer: ans }, 'mcq_msg_' + qid);
+}
+
+// ── Fill in the blank ─────────────────────────────────────
+function submitFill(qid) {
+    const ans = document.getElementById('fill_' + qid).value.trim();
+    if (!ans) { showMsg('fill_msg_'+qid, 'Enter your answer.', 'danger'); return; }
+    postAnswer(qid, { student_answer: ans }, 'fill_msg_' + qid);
+}
+
+// ── Short answer ─────────────────────────────────────────
+function submitShort(qid) {
+    const ans = document.getElementById('short_' + qid).value.trim();
+    if (!ans) { showMsg('short_msg_'+qid, 'Write your answer.', 'danger'); return; }
+    postAnswer(qid, { student_answer: ans }, 'short_msg_' + qid);
+}
+
+// ── Programming ──────────────────────────────────────────
+function setBusy(qid, busy) {
+    ['btn_run_', 'btn_save_', 'btn_act_'].forEach(prefix => {
+        const btn = document.getElementById(prefix + qid);
+        if (btn) btn.disabled = busy;
+    });
+}
+
+function runCode(qid) {
+    const code     = editors[qid] ? editors[qid].getValue() : document.getElementById('code_' + qid).value;
+    const inputtxt = document.getElementById('input_' + qid).value;
+    const outEl    = document.getElementById('output_' + qid);
+    const btnRun   = document.getElementById('btn_run_' + qid);
+    let lang = currentLang;
+    if (lang === 'python') lang = 'p';
+    else if (lang === 'java') lang = 'j';
+    outEl.value = 'Running...';
+    setBusy(qid, true);
+    if (btnRun) btnRun.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Running...';
+    fetch('../onlineide/run_code.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ csrf_token: CSRF, code, inputtxt, language: lang })
+    }).then(r => r.json()).then(d => {
+        outEl.value = d.output || (d.success ? '' : 'Error running code.');
+    }).catch(() => { outEl.value = 'System error.'; })
+    .finally(() => {
+        setBusy(qid, false);
+        if (btnRun) btnRun.innerHTML = '<i class="fas fa-play me-1"></i> Run';
+    });
+}
+
+function submitCode(qid) {
+    const code   = (editors[qid] ? editors[qid].getValue() : document.getElementById('code_' + qid).value).trim();
+    const input  = document.getElementById('input_' + qid)?.value ?? '';
+    const output = document.getElementById('output_' + qid)?.value ?? '';
+    if (!code) { showMsg('prog_msg_'+qid, 'Write your code first.', 'danger'); return; }
+    if (!confirm('Submit this answer?\n\nTest cases will run. Your code is locked only when all test cases pass.')) return;
+    postAnswer(qid, { code, input_used: input, output }, 'prog_msg_' + qid, { forceReload: true });
+}
+
+// ── Debugging ─────────────────────────────────────────────
+function submitDebug(qid) {
+    const code   = (editors[qid] ? editors[qid].getValue() : document.getElementById('code_' + qid).value).trim();
+    const input  = document.getElementById('input_' + qid)?.value ?? '';
+    const output = document.getElementById('output_' + qid)?.value ?? '';
+    if (!code) { showMsg('debug_msg_'+qid, 'Write your fixed code first.', 'danger'); return; }
+    if (!confirm('Submit this fix?\n\nTest cases will run. Your code is locked only when all test cases pass.')) return;
+    postAnswer(qid, { code, input_used: input, output }, 'debug_msg_' + qid, { forceReload: true });
+}
+
+function saveDraft(qid) {
+    const code    = editors[qid] ? editors[qid].getValue() : document.getElementById('code_' + qid).value;
+    const input   = document.getElementById('input_' + qid)?.value ?? '';
+    const msgId   = document.getElementById('prog_msg_' + qid) ? 'prog_msg_' + qid : 'debug_msg_' + qid;
+    const btnSave = document.getElementById('btn_save_' + qid);
+    if (!code.trim()) { showMsg(msgId, 'Write your code first.', 'danger'); return; }
+    const origHTML = btnSave ? btnSave.innerHTML : '';
+    if (btnSave) { btnSave.disabled = true; btnSave.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Saving...'; }
+    fetch('ajax/save_draft_answer.php', {
+        method: 'POST',
+        body: new URLSearchParams({ csrf_token: CSRF, assignment_id: ASSIGNMENT_ID, question_id: qid, code, input_used: input })
+    }).then(r => r.json()).then(d => {
+        if (d.success) { showMsg(msgId, '✓ Draft saved', 'success'); markNavDone(qid); }
+        else showMsg(msgId, d.message || 'Save failed.', 'danger');
+    }).catch(() => showMsg(msgId, 'Save failed. Try again.', 'danger'))
+    .finally(() => {
+        if (btnSave) { btnSave.disabled = false; btnSave.innerHTML = origHTML; }
+    });
+}
+
+function postAnswer(qid, fields, msgId, opts) {
+    const btnAct     = document.getElementById('btn_act_' + qid);
+    const origActHTML = btnAct ? btnAct.innerHTML : '';
+    setBusy(qid, true);
+    if (btnAct) btnAct.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Saving...';
+    const _msgEl = document.getElementById(msgId);
+    if (_msgEl) { _msgEl.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Please wait...'; _msgEl.className = 'ms-2 small text-secondary'; }
+    const body = new URLSearchParams({ csrf_token: CSRF, assignment_id: ASSIGNMENT_ID, question_id: qid, ...fields });
+    if (IS_MULTILANG) body.append('chosen_lang', currentLang);
+    fetch('ajax/submit_answer.php', { method: 'POST', body })
+    .then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+    })
+    .then(d => {
+        if (d.success) {
+            showMsg(msgId, d.message || '✓ Saved', 'success');
+            markNavDone(qid);
+            if ((d.tc_results && Object.keys(d.tc_results).length > 0) || opts?.forceReload) {
+                sessionStorage.setItem('attempt_resume_qid', qid);
+                setTimeout(() => location.reload(), 800);
+            }
+        } else {
+            showMsg(msgId, d.message || 'Error saving.', 'danger');
+        }
+    })
+    .catch(err => {
+        showMsg(msgId, 'Submit failed. Please try again. (' + err.message + ')', 'danger');
+    })
+    .finally(() => {
+        setBusy(qid, false);
+        if (btnAct) btnAct.innerHTML = origActHTML;
+    });
+}
+
+let _answeredCount = 10;
+const _totalCount  = 10;
+
+function markNavDone(qid) {
+    const nav = document.getElementById('nav_' + qid);
+    if (nav) {
+        if (!nav.classList.contains('done')) {
+            nav.classList.add('done');
+            if (!nav.querySelector('.q-nav-tick')) {
+                nav.querySelector('.q-nav-num').insertAdjacentHTML('afterend', '<i class="fas fa-check-circle q-nav-tick ms-1"></i>');
+            }
+            _answeredCount++;
+            const el = document.getElementById('answered-count');
+            if (el) el.textContent = _answeredCount + '/' + _totalCount + ' answered';
+        }
+    }
+}
+
+function showMsg(elId, msg, type) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    el.textContent = msg;
+    el.className = 'ms-2 small text-' + type;
+    setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, 3000);
+}
+
+// ── File Upload ───────────────────────────────────────────────
+const uploadedPaths = {};
+
+function uploadSlot(qid, slotNo, input) {
+    const file = input.files[0];
+    if (!file) return;
+    const nameEl   = document.getElementById('slot' + slotNo + '_name_' + qid);
+    const progEl   = document.getElementById('slot' + slotNo + '_progress_' + qid);
+    const errEl    = document.getElementById('slot' + slotNo + '_error_' + qid);
+    const clearBtn = document.getElementById('clear' + slotNo + '_' + qid);
+
+    // Client-side guards before hitting the server
+    const MAX_BYTES = 10 * 1024 * 1024;
+    if (file.size > MAX_BYTES) {
+        errEl.textContent   = 'File must be 10 MB or smaller.';
+        errEl.style.display = 'block';
+        input.value = '';
+        return;
+    }
+    if (file.type && file.type !== 'application/pdf') {
+        errEl.textContent   = 'Only PDF files are accepted.';
+        errEl.style.display = 'block';
+        input.value = '';
+        return;
+    }
+    // Enforce max 2 files: slot 1 and slot 2 only (enforced by UI, but guard here too)
+    if (slotNo < 1 || slotNo > 2) return;
+
+    const barEl = document.getElementById('slot' + slotNo + '_bar_' + qid);
+    const pctEl = document.getElementById('slot' + slotNo + '_pct_' + qid);
+
+    errEl.style.display  = 'none';
+    errEl.textContent    = '';
+    nameEl.textContent   = 'Uploading…';
+    nameEl.className     = 'text-secondary';
+    if (barEl) barEl.style.width = '0%';
+    if (pctEl) pctEl.textContent = 'Uploading… 0%';
+    progEl.style.display = 'block';
+    if (clearBtn) clearBtn.style.display = 'none';
+
+    const fd = new FormData();
+    fd.append('csrf_token',    CSRF);
+    fd.append('assignment_id', ASSIGNMENT_ID);
+    fd.append('question_id',   qid);
+    fd.append('file_index',    slotNo);
+    fd.append('pdf_file',      file);
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.upload.onprogress = function(e) {
+        if (e.lengthComputable) {
+            const pct = Math.round((e.loaded / e.total) * 100);
+            if (barEl) barEl.style.width = pct + '%';
+            if (pctEl) pctEl.textContent = 'Uploading… ' + pct + '%';
+        }
+    };
+
+    xhr.onload = function() {
+        progEl.style.display = 'none';
+        let d;
+        try { d = JSON.parse(xhr.responseText); } catch(e) {
+            nameEl.textContent  = 'Upload failed';
+            nameEl.className    = 'text-danger';
+            errEl.textContent   = 'Server error ' + xhr.status + '. Please try again.';
+            errEl.style.display = 'block';
+            input.value = '';
+            return;
+        }
+        if (d.success) {
+            if (!uploadedPaths[qid]) uploadedPaths[qid] = {};
+            uploadedPaths[qid][slotNo] = d.file_path;
+            nameEl.textContent = d.file_name + ' (' + d.file_size + ')';
+            nameEl.className   = 'text-success fw-semibold';
+            nameEl.style.fontSize = '.78rem';
+            if (clearBtn) clearBtn.style.display = '';
+        } else {
+            nameEl.textContent  = 'Upload failed';
+            nameEl.className    = 'text-danger';
+            errEl.textContent   = d.message || 'Upload failed.';
+            errEl.style.display = 'block';
+            input.value = '';
+        }
+    };
+
+    xhr.onerror = function() {
+        progEl.style.display = 'none';
+        nameEl.textContent  = 'Upload failed';
+        nameEl.className    = 'text-danger';
+        errEl.textContent   = 'Connection error. Please try again.';
+        errEl.style.display = 'block';
+        input.value = '';
+    };
+
+    xhr.open('POST', 'ajax/upload_file.php');
+    xhr.send(fd);
+}
+
+function clearSlot(qid, slotNo) {
+    if (!uploadedPaths[qid]) uploadedPaths[qid] = {};
+    uploadedPaths[qid][slotNo] = null;
+    const nameEl   = document.getElementById('slot' + slotNo + '_name_' + qid);
+    const clearBtn = document.getElementById('clear' + slotNo + '_' + qid);
+    if (nameEl)   { nameEl.textContent = 'No file chosen'; nameEl.className = 'text-muted'; }
+    if (clearBtn) clearBtn.style.display = 'none';
+    const slotEl = document.getElementById('slot_' + slotNo + '_' + qid);
+    if (slotEl) { const fi = slotEl.querySelector('input[type=file]'); if (fi) fi.value = ''; }
+}
+
+function submitFileUpload(qid) {
+    const paths = uploadedPaths[qid] || {};
+    const validPaths = [paths[1], paths[2]].filter(Boolean);
+    const msgId = 'upload_msg_' + qid;
+    if (validPaths.length === 0) {
+        showMsg(msgId, 'Please upload at least one PDF file first.', 'danger');
+        return;
+    }
+    postAnswer(qid, { file_paths: JSON.stringify(validPaths) }, msgId);
+}
+
+// ─── ANTI-CHEAT: block copy / paste / cut / drag-drop / right-click ───────
+(function() {
+    function acWarn(msg) {
+        var t = document.getElementById('_acToast');
+        if (!t) {
+            t = document.createElement('div');
+            t.id = '_acToast';
+            t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);' +
+                'background:#1e293b;color:#f8fafc;padding:11px 24px;border-radius:10px;' +
+                'font-size:.85rem;font-weight:600;z-index:999999;opacity:0;' +
+                'transition:opacity .25s;pointer-events:none;display:flex;align-items:center;' +
+                'gap:10px;box-shadow:0 4px 24px rgba(0,0,0,.45);border-left:4px solid #ef4444;' +
+                'white-space:nowrap';
+            t.innerHTML = '<span style="color:#ef4444;font-size:1.1rem">&#9940;</span>' +
+                          '<span id="_acMsg"></span>';
+            document.body.appendChild(t);
+        }
+        document.getElementById('_acMsg').textContent = msg;
+        t.style.opacity = '1';
+        clearTimeout(t._tm);
+        t._tm = setTimeout(function() { t.style.opacity = '0'; }, 2600);
+    }
+
+    // Paste — blocked fully so clipboard data never reaches CodeMirror
+    document.addEventListener('paste', function(e) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        acWarn('Paste is not allowed during this assessment.');
+    }, true);
+
+    // Copy — safety net for anything that bypasses keydown (right-click, touch, programmatic)
+    document.addEventListener('copy', function(e) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        acWarn('Copy is not allowed during this assessment.');
+    }, true);
+
+    // Cut — same safety net
+    document.addEventListener('cut', function(e) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        acWarn('Cut is not allowed during this assessment.');
+    }, true);
+
+    // Right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        acWarn('Right-click is disabled.');
+    }, true);
+
+    // Drag and drop
+    document.addEventListener('dragstart', function(e) { e.preventDefault(); e.stopImmediatePropagation(); }, true);
+    document.addEventListener('dragover',  function(e) { e.preventDefault(); e.stopImmediatePropagation(); }, true);
+    document.addEventListener('drop',      function(e) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        acWarn('Drag & drop is not allowed during this assessment.');
+    }, true);
+
+    // Keyboard shortcuts — stopImmediatePropagation on Ctrl+C/V/X so CodeMirror's
+    // keydown handler never runs, preventing it from firing copy/cut/paste DOM events
+    document.addEventListener('keydown', function(e) {
+        var ctrl = e.ctrlKey || e.metaKey;
+        if (ctrl) {
+            var k = e.key.toLowerCase();
+            if (k === 'c') { e.preventDefault(); e.stopImmediatePropagation(); acWarn('Copy is not allowed.'); return; }
+            if (k === 'v') { e.preventDefault(); e.stopImmediatePropagation(); acWarn('Paste is not allowed.'); return; }
+            if (k === 'x') { e.preventDefault(); e.stopImmediatePropagation(); acWarn('Cut is not allowed.'); return; }
+            if (k === 'u') { e.preventDefault(); return; }  // view-source
+            if (k === 's') { e.preventDefault(); return; }  // save page
+        }
+        // Ctrl/Cmd+Shift+I/J/C — browser DevTools
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey) {
+            var k2 = e.key.toLowerCase();
+            if (k2 === 'i' || k2 === 'j' || k2 === 'c') { e.preventDefault(); return; }
+        }
+        if (e.key === 'F12') { e.preventDefault(); return; }
+    }, true);
+
+    // Override CodeMirror's built-in paste command so Ctrl+V inside editor is also blocked
+    if (typeof CodeMirror !== 'undefined') {
+        CodeMirror.commands.paste = function() {
+            acWarn('Paste is not allowed in the code editor.');
+        };
+        // Block drag-drop into each editor
+        Object.values(editors).forEach(function(cm) {
+            cm.on('drop', function(instance, e) {
+                e.preventDefault();
+                acWarn('Drag & drop is not allowed.');
+            });
+        });
+    }
+
+    // user-select:none on question text / option labels so content can't be selected for copy
+    var s = document.createElement('style');
+    s.textContent = '.q-text-body,.option-card,.q-code-block,.q-inline-code,.q-nav-item{' +
+                    '-webkit-user-select:none!important;user-select:none!important}';
+    document.head.appendChild(s);
+})();
+</script>
+
+</main>
+<style>
+    .main-footer {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: #ecf0f1;
+        text-align: center;
+        padding: 20px 0;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        margin-top: auto;
+        border-top: 3px solid #f39c12;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+    }
+    .footer-highlight {
+        color: #f39c12;
+        font-weight: 700;
+    }
+</style>
+
+<footer class="main-footer">
+    <div class="container">
+        © 2026 <span class="footer-highlight">SIMATS Online Lab</span>. All rights reserved.
+    </div>
+</footer>
+<script src="./LAB PROGRAM -TOPIC 3-1 Q2_files/bootstrap.bundle.min.js.download"></script>
+
+
+</body><text-blaze-app-reference style="display: contents !important;" role="none"><template shadowrootmode="closed"><style>
+      div:before {
+        content: attr(data-content);
+      }
+      div {
+        all: initial;
+        position: absolute;
+        border: 0;
+        margin: -1px;
+        padding: 0;
+        width: 0.1px;
+        height: 0.1px;
+        user-select: none;
+        overflow: hidden;
+        font-size: 0px;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        pointer-events: none;
+      }
+      @media print {
+        * {
+          display: none !important;
+        }
+      }
+      </style><div aria-label="text-blaze-integration" role="group" tabindex="-1" data-content="{&quot;extensionEnabled&quot;:true,&quot;ai&quot;:true}" dir="ltr"></div></template></text-blaze-app-reference></html>
